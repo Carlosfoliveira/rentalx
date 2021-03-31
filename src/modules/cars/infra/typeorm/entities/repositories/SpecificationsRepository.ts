@@ -1,10 +1,11 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { Specification } from '../../entities/Specification';
 import {
   ICreateSpecificationDTO,
   ISpecificationsRepository,
-} from '../ISpecificationsRepository';
+} from '@modules/cars/repositories/ISpecificationsRepository';
+
+import { Specification } from '../Specification';
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private repository: Repository<Specification>;
@@ -12,14 +13,6 @@ class SpecificationsRepository implements ISpecificationsRepository {
   constructor() {
     this.repository = getRepository(Specification);
   }
-
-  // public static getInstance(): SpecificationsRepository {
-  //   if (!SpecificationsRepository.INSTANCE) {
-  //     SpecificationsRepository.INSTANCE = new SpecificationsRepository();
-  //   }
-
-  //   return SpecificationsRepository.INSTANCE;
-  // }
 
   async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
     const specification = this.repository.create({
